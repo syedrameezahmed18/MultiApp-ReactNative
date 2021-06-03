@@ -1,6 +1,7 @@
 import React from 'react';
 import { Touchable } from 'react-native';
 import { View, Text, ButtoN, TouchableOpacity, StyleSheet } from 'react-native';
+import { Icon } from 'react-native-elements'
 
 export default function HomeScreen(props) {
 
@@ -37,35 +38,57 @@ export default function HomeScreen(props) {
             height: 50,
             backgroundColor: '#9400D3',
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
             padding: 10,
-            justifyContent: 'center',
-            borderRadius: 10
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            borderRadius: 10,
+            paddingLeft: 20
         },
 
         toDo: {
             height: 50,
             backgroundColor: '#2196f3',
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
             padding: 10,
-            justifyContent: 'center',
-            borderRadius: 10
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            borderRadius: 10,
+            paddingLeft: 15
         },
 
         Exp: {
             height: 50,
             backgroundColor: 'green',
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
             padding: 10,
-            justifyContent: 'center',
-            borderRadius: 10
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            borderRadius: 10,
+            paddingLeft: 12
         },
 
         innertxt: {
             color: 'white',
-            fontWeight: '700'
+            fontWeight: '700',
+            marginLeft: 15,
+            fontSize: 18
+        },
+
+        innertxt2: {
+            color: 'white',
+            fontWeight: '700',
+            marginLeft: 12,
+            fontSize: 18
+        },
+
+        innertxt3: {
+            color: 'white',
+            fontWeight: '700',
+            marginLeft: 10,
+            fontSize: 18
         }
     })
 
@@ -79,12 +102,30 @@ export default function HomeScreen(props) {
             <Text style={styles.subtxt}>Choose</Text>
             <View style={styles.choices}>
                 <TouchableOpacity style={styles.Cov} onPress={Redirect.bind(this, 'Covid')}>
+                    <Icon
+                        name="thermometer-empty"
+                        type="font-awesome"
+                        color="white"
+                        size={32}
+                    />
                     <Text style={styles.innertxt}>Covid Tracker</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.toDo} onPress={Redirect.bind(this, 'Goal')}>
-                    <Text style={styles.innertxt}>ToDo List</Text></TouchableOpacity>
+                    <Icon
+                        name="sticky-note-o"
+                        type="font-awesome"
+                        color="white"
+                        size={32}
+                    />
+                    <Text style={styles.innertxt2}>ToDo List</Text></TouchableOpacity>
                 <TouchableOpacity style={styles.Exp}>
-                    <Text style={styles.innertxt}>Expense Tracker</Text></TouchableOpacity>
+                    <Icon
+                        name="money"
+                        type="font-awesome"
+                        color="white"
+                        size={32}
+                    />
+                    <Text style={styles.innertxt3}>Expense Tracker</Text></TouchableOpacity>
             </View>
         </View>
     )
