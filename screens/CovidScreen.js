@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, TextInput, Modal, Text, Image, StyleSheet, ScrollView } from 'react-native'
 import World from './../components/World.js'
+import Country from './../components/Country.js'
 
 const CovidScreen = () => {
 
@@ -29,6 +30,7 @@ const CovidScreen = () => {
                 <Text style={styles.headerText}>Covid Tracker</Text>
             </View>
             <World />
+            <Country />
         </ScrollView>
     )
 
