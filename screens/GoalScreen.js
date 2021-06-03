@@ -10,7 +10,7 @@ export default function GoalScreen() {
 
   const styles = StyleSheet.create({
     root: {
-      padding: 50
+      padding: 30
     },
     inputDiv: {
       display: 'flex',
@@ -26,6 +26,21 @@ export default function GoalScreen() {
       flexDirection: 'row',
       paddingHorizontal: 10,
       alignItems: 'center'
+    },
+    header: {
+      marginVertical: 0,
+      backgroundColor: '#2196f3',
+      height: 100,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+
+    headerText: {
+      color: 'white',
+      fontSize: 26,
+      fontWeight: '700',
+
     }
   });
 
@@ -48,25 +63,31 @@ export default function GoalScreen() {
   }
 
   return (
-    <View style={styles.root}>
-      <View style={styles.inputDiv}>
-        <TextInput style={{ width: '80%', borderBottomColor: 'black' }}
-          placeholder="Enter Goal" onChangeText={handleChange} value={currentGoal} />
-        <Button disabled={currentGoal.length === 0} title={'ADD'} onPress={addGoal} />
+    <ScrollView>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>ToDo List</Text>
       </View>
-      <ScrollView>
-        {
-          goals.map((goal, index) => {
-            return (
-              <TouchableOpacity onPress={deleteGoal.bind(this, goal.id)} key={index}>
-                <View style={styles.eachStyle}>
-                  <Text style={{ color: 'white' }}>{`${index + 1}. ${goal.text}`}</Text>
-                </View>
-              </TouchableOpacity>
-            )
-          })
-        }
-      </ScrollView>
-    </View>
+      <View style={styles.root}>
+
+        <View style={styles.inputDiv}>
+          <TextInput style={{ width: '80%', borderBottomColor: 'black' }}
+            placeholder="Enter Goal" onChangeText={handleChange} value={currentGoal} />
+          <Button disabled={currentGoal.length === 0} title={'ADD'} onPress={addGoal} />
+        </View>
+        <ScrollView>
+          {
+            goals.map((goal, index) => {
+              return (
+                <TouchableOpacity onPress={deleteGoal.bind(this, goal.id)} key={index}>
+                  <View style={styles.eachStyle}>
+                    <Text style={{ color: 'white' }}>{`${index + 1}. ${goal.text}`}</Text>
+                  </View>
+                </TouchableOpacity>
+              )
+            })
+          }
+        </ScrollView>
+      </View>
+    </ScrollView>
   );
 }
