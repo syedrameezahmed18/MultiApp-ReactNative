@@ -2,13 +2,14 @@ import React from 'react'
 import { View, TextInput, Modal, Text, Image, StyleSheet, ScrollView } from 'react-native'
 import World from './../components/World.js'
 import Country from './../components/Country.js'
+import Colors from './../configs/colors'
 
 const CovidScreen = () => {
 
     const styles = StyleSheet.create({
         header: {
             marginVertical: 0,
-            backgroundColor: '#9400D3',
+            backgroundColor: Colors.purple,
             height: 100,
             flexDirection: 'row',
             justifyContent: 'center',
@@ -16,7 +17,7 @@ const CovidScreen = () => {
         },
 
         headerText: {
-            color: 'white',
+            color: Colors.white,
             fontSize: 26,
             fontWeight: '700',
             
@@ -29,8 +30,8 @@ const CovidScreen = () => {
             <View style={styles.header}>
                 <Text style={styles.headerText}>Covid Tracker</Text>
             </View>
-            <World />
-            <Country />
+            <World color={Colors}/>
+            <Country color={Colors}/>
         </ScrollView>
     )
 

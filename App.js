@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Button, TextInput, ScrollView, Touchable, Touch
 import GoalScreen from './screens/GoalScreen';
 import CovidScreen from './screens/CovidScreen';
 import HomeScreen from './screens/HomeScreen';
+import TrackerScreen from './screens/TrackerScreen';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 
@@ -12,6 +13,7 @@ const navigator = createStackNavigator({
   Home: HomeScreen,
   Goal: GoalScreen,
   Covid: CovidScreen,
+  Tracker: TrackerScreen
 },
   {
     initialRouteName: 'Home',

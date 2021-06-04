@@ -5,7 +5,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 
 
-export default function World() {
+export default function World({color}) {
 
     const [data, setData] = useState({
 
@@ -87,7 +87,7 @@ export default function World() {
                             <Card
                                 iconName={'heartbeat'}
                                 iconSeries={'font-awesome'}
-                                color={'white'}
+                                color={color.white}
                                 backColor={'lightblue'}
                                 cardTitle={'Total Cases'}
                                 cardValue={data?.TotalConfirmed || 0}
@@ -95,7 +95,7 @@ export default function World() {
                             <Card
                                 iconName={'book'}
                                 iconSeries={'font-awesome'}
-                                color={'white'}
+                                color={color.white}
                                 backColor={'red'}
                                 cardTitle={'Total Deaths'}
                                 cardValue={data?.TotalDeaths || 0}
@@ -103,8 +103,8 @@ export default function World() {
                             <Card
                                 iconName={'medkit'}
                                 iconSeries={'font-awesome'}
-                                color={'white'}
-                                backColor={'green'}
+                                color={color.white}
+                                backColor={color.green}
                                 cardTitle={'Total Recoveries'}
                                 cardValue={data?.TotalRecovered || 0}
                             />

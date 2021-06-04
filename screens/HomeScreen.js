@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Touchable } from 'react-native';
 import { View, Text, ButtoN, TouchableOpacity, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements'
+import {TransactionProvider} from '../TransactionContext'
 
 export default function HomeScreen(props) {
+
+
 
     const styles = StyleSheet.create({
         mainApp: {
@@ -97,36 +100,40 @@ export default function HomeScreen(props) {
     }
 
     return (
-        <View style={styles.mainApp}>
-            <Text style={styles.maintxt}>Welcome to MultiApp</Text>
-            <Text style={styles.subtxt}>Choose</Text>
-            <View style={styles.choices}>
-                <TouchableOpacity style={styles.Cov} onPress={Redirect.bind(this, 'Covid')}>
-                    <Icon
-                        name="thermometer-empty"
-                        type="font-awesome"
-                        color="white"
-                        size={32}
-                    />
-                    <Text style={styles.innertxt}>Covid Tracker</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.toDo} onPress={Redirect.bind(this, 'Goal')}>
-                    <Icon
-                        name="sticky-note-o"
-                        type="font-awesome"
-                        color="white"
-                        size={32}
-                    />
-                    <Text style={styles.innertxt2}>ToDo List</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.Exp}>
-                    <Icon
-                        name="money"
-                        type="font-awesome"
-                        color="white"
-                        size={32}
-                    />
-                    <Text style={styles.innertxt3}>Expense Tracker</Text></TouchableOpacity>
+        <TransactionProvider>
+            <View style={styles.mainApp}>
+
+                <Text style={styles.maintxt}>Welcome to MultiApp</Text>
+                <Text style={styles.subtxt}>Choose</Text>
+                <View style={styles.choices}>
+                    <TouchableOpacity style={styles.Cov} onPress={Redirect.bind(this, 'Covid')}>
+                        <Icon
+                            name="thermometer-empty"
+                            type="font-awesome"
+                            color="white"
+                            size={32}
+                        />
+                        <Text style={styles.innertxt}>Covid Tracker</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.toDo} onPress={Redirect.bind(this, 'Goal')}>
+                        <Icon
+                            name="sticky-note-o"
+                            type="font-awesome"
+                            color="white"
+                            size={32}
+                        />
+                        <Text style={styles.innertxt2}>ToDo List</Text></TouchableOpacity>
+                    <TouchableOpacity style={styles.Exp} onPress={Redirect.bind(this, 'Tracker')}>
+                        <Icon
+                            name="money"
+                            type="font-awesome"
+                            color="white"
+                            size={32}
+                        />
+                        <Text style={styles.innertxt3}>Expense Tracker</Text></TouchableOpacity>
+                </View>
+
             </View>
-        </View>
+        </TransactionProvider>
     )
 }
