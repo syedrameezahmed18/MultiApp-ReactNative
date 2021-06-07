@@ -16,7 +16,8 @@ export default function TrackerScreen() {
             height: 100,
             flexDirection: 'row',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            width: '100%'
         },
 
         headerText: {
@@ -118,31 +119,122 @@ export default function TrackerScreen() {
         },
 
         equal: {
-            width:'45%',
-            display:'flex',
-            flexDirection:'row',
-            justifyContent:'flex-start',
-            alignItems:'center'
+            width: '45%',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            alignItems: 'center'
+        },
+    })
+
+    const newStyles = StyleSheet.create({
+
+        middle: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+        },
+        firstHeaderCont: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center'
+        },
+
+        firstHeader: {
+            display: 'flex',
+            flexDirection: "row",
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: '85%',
+            marginVertical: 40
+        },
+
+        tabCont: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: "space-around",
+            width: '85%'
+        },
+
+        tabContEachSelected: {
+            width: '30%',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: Colors.green,
+            borderRadius: 20,
+            padding: 10
+        },
+        tabContEachUnSelected: {
+            width: '30%',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'lightgray',
+            borderRadius: 20,
+            padding: 10
+        },
+
+        tabContEachSelectedText: {
+            color: Colors.white
+        },
+        tabContEachUnSelectedText: {
+            color: 'gray'
         }
     })
 
 
     const [isModalVisible, setIsModalVisible] = useState(false);
-
-
-
+    const [tabs, setTabs] = useState([{
+        index: 1,
+        name: 'All',
+        selected: true
+    },
+    {
+        index: 2,
+        name: 'Expenses',
+        selected: false
+    },
+    {
+        index: 3,
+        name: 'Gains',
+        selected: false
+    }])
 
     const toggleModal = () => {
         setIsModalVisible(!isModalVisible)
     }
 
+    const selectChange = (index) => {
+        //filter the selected object to update its selected attribute
 
+        const elementsIndex = tabs.findIndex(element => element.index == index)
+        console.log(elementsIndex);
+        let newArray = [...tabs]
 
+        newArray[elementsIndex] = { ...newArray[elementsIndex], selected: true }
 
+        let updatedArray = newArray;
 
+        let latestArray = [...updatedArray]
 
+        for (let i = 0; i < latestArray.length; i++) {
+            if(i !== elementsIndex) {
+                latestArray[i] = { ...latestArray[i], selected: false}
+            }
+        }
 
+        let finalArray = latestArray;
+        console.log(finalArray)
 
+        setTabs(finalArray)
+
+    }
+    console.log(tabs)
 
     return (
         <GlobalState>
@@ -150,10 +242,39 @@ export default function TrackerScreen() {
                 {
                     context => (
                         <ScrollView>
-                            <View style={styles.header}>
-                                <Text style={styles.headerText}>Expense Tracker</Text>
-                            </View>
-                            <View style={{ padding: 20 }}>
+                            <View style={newStyles.middle}>
+                                <View style={styles.header}>
+                                    <Text style={styles.headerText}>Expense Tracker</Text>
+                                </View>
+                                <View style={newStyles.firstHeaderCont}>
+                                    <View style={newStyles.firstHeader}>
+                                        <Total type="total" />
+                                        <TouchableOpacity onPress={toggleModal}>
+                                            <Icon
+                                                name="pencil"
+                                                type="font-awesome"
+                                                color={Colors.green}
+                                                size={24}
+                                            />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                                <View style={newStyles.tabCont}>
+                                    {
+                                        tabs.map((tab, id) => {
+                                            return (
+                                                <TouchableOpacity
+                                                    key={id}
+                                                    onPress={selectChange.bind(this, tab.index)}
+                                                    style={tab.selected ? newStyles.tabContEachSelected : newStyles.tabContEachUnSelected}>
+                                                    <Text
+                                                        style={tab.selected ? newStyles.tabContEachSelectedText : newStyles.tabContEachUnSelectedText}>{tab.name}</Text>
+                                                </TouchableOpacity>
+                                            )
+                                        })
+                                    }
+                                </View>
+                                {/*<View style={{ padding: 20 }}>
                                 <View style={styles.buttonContainer}>
                                     <TouchableOpacity
                                         onPress={toggleModal}
@@ -224,6 +345,7 @@ export default function TrackerScreen() {
                                             }) : (null)
                                     }
                                 </View>
+                            </View> */}
                             </View>
 
                             <TransactionModal

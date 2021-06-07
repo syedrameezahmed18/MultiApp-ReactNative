@@ -1,5 +1,5 @@
 export default {
-    green: 'green',
+    green: 'limegreen',
     purple: '#9400D3',
     blue: '#2196f3',
     red: 'red',
