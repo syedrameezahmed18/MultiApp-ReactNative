@@ -11,7 +11,7 @@ export default function TransactionModal(props) {
     const styles = StyleSheet.create({
         mainModalStyle: {
             backgroundColor: props.colors.white,
-            height: 300,
+            height: 320,
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-around',
@@ -117,12 +117,6 @@ export default function TransactionModal(props) {
             setData({ ...data, amount: PositiveData })
         }
     }
-
-    
-
-
-
-
 
     return (
         <View>
