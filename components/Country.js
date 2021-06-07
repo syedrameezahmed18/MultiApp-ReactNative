@@ -1,24 +1,42 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { ScrollView } from 'react-native-gesture-handler';
 
-export default function Country() {
+export default function Country({ color }) {
 
     const [countryData, setCountryData] = useState([
 
     ]);
-
+    const [url, setUrl] = useState('https://api.covid19api.com/summary')
     const [searchCountry, setSearchCountry] = useState('Pakistan')
 
     useEffect(() => {
-
-        fetch('https://api.covid19api.com/summary')
+        console.log(`useEffect fired`);
+        let abortController = new AbortController();
+        fetch(url, {
+            signal: abortController.signal
+        })
             .then(resp => resp.json())
             .then(data => {
                 setCountryData(data.Countries)
             })
-    }, [])
+            .catch(err => {
+                if (err.name === "AbortError") {
+                    console.log('Aborted')
+                }
+                else {
+                    console.log(err)
+                }
+            })
+
+        //CleanUp function    
+        return () => { abortController.abort() } //basically an inverse function to fetch in this case to abort/cleanup
+        //data to prevent memory leak
+
+    }, [url])
+    //dependency array of useEffect in this case the useEffect will only run once the component is mounted and everytime
+    //the url state changes
 
     const searchedCountry = (input) => {
         setSearchCountry(input);
@@ -71,7 +89,7 @@ export default function Country() {
             justifyContent: 'space-around',
             alignItems: 'center',
             marginVertical: 20,
-            backgroundColor: '#9400D3',
+            backgroundColor: color.purple,
             paddingHorizontal: 20,
             width: '100%',
             height: 300,
@@ -124,20 +142,22 @@ export default function Country() {
 
                 <View style={styles.searchBar}>
                     <TextInput placeholder="Country Name" style={styles.inputBox} value={searchCountry} onChangeText={searchedCountry} />
-                    <Icon
-                        name="search"
-                        type="faont-awesome"
-                        color="black"
-                        size={36}
-                    />
+                    <TouchableOpacity>
+                        <Icon
+                            name="search"
+                            type="font-awesome"
+                            color="black"
+                            size={36}
+                        />
+                    </TouchableOpacity>
                 </View>
 
                 {filteredCountry.length === 0 && (
 
                     <Text style={{ textAlign: 'center' }}>No Results Found</Text>
-                    
+
                 ) || filteredCountry.length !== 0 && (
-                    
+
                     <View style={styles.countryDiv}>
                         {
                             filteredCountry?.map((theCountry, index) => {

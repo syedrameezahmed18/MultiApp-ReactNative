@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
+import Colors from './../configs/colors';
 import { StyleSheet, Text, View, Button, TextInput, ScrollView, Touchable, TouchableOpacity, Keyboard } from 'react-native';
 
 export default function GoalScreen() {
@@ -20,7 +21,7 @@ export default function GoalScreen() {
     },
     eachStyle: {
       height: 50,
-      backgroundColor: '#2196f3',
+      backgroundColor: Colors.blue,
       marginTop: 20,
       display: 'flex',
       flexDirection: 'row',
@@ -29,7 +30,7 @@ export default function GoalScreen() {
     },
     header: {
       marginVertical: 0,
-      backgroundColor: '#2196f3',
+      backgroundColor: Colors.blue,
       height: 100,
       flexDirection: 'row',
       justifyContent: 'center',
@@ -37,7 +38,7 @@ export default function GoalScreen() {
     },
 
     headerText: {
-      color: 'white',
+      color: Colors.white,
       fontSize: 26,
       fontWeight: '700',
 
@@ -80,7 +81,7 @@ export default function GoalScreen() {
               return (
                 <TouchableOpacity onPress={deleteGoal.bind(this, goal.id)} key={index}>
                   <View style={styles.eachStyle}>
-                    <Text style={{ color: 'white' }}>{`${index + 1}. ${goal.text}`}</Text>
+                    <Text style={{ color: colors.white }}>{`${index + 1}. ${goal.text}`}</Text>
                   </View>
                 </TouchableOpacity>
               )
