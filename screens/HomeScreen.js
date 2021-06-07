@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Touchable } from 'react-native';
 import { View, Text, ButtoN, TouchableOpacity, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements'
-import {TransactionProvider} from '../TransactionContext'
+import GlobalState from './../context/GlobalState'
+
 
 export default function HomeScreen(props) {
 
@@ -100,7 +101,7 @@ export default function HomeScreen(props) {
     }
 
     return (
-        <TransactionProvider>
+        <GlobalState>
             <View style={styles.mainApp}>
 
                 <Text style={styles.maintxt}>Welcome to MultiApp</Text>
@@ -134,6 +135,7 @@ export default function HomeScreen(props) {
                 </View>
 
             </View>
-        </TransactionProvider>
+        </GlobalState>
+
     )
 }

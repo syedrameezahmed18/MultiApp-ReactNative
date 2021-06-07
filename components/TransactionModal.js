@@ -1,9 +1,11 @@
 import color from 'color';
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, Button, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import Modal from 'react-native-modal';
+import TransactionContext from './../context/TransactionContext'
 
 export default function TransactionModal(props) {
+
 
 
     const styles = StyleSheet.create({
@@ -72,10 +74,33 @@ export default function TransactionModal(props) {
         }
     })
 
+
+
+    const context = useContext(TransactionContext)
+
     const [data, setData] = useState({
         name: '',
         amount: 0
     })
+
+    useEffect(() => {
+        setData({
+            name: '',
+            amount: 0,
+            id: Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1)
+        })
+    }, [props.toggleModal])
+
+    useEffect(() => {
+        const Toggeler = () => {
+            props.toggleModal
+        }
+
+        Toggeler()
+    }, [context.addTransaction])
+
 
     const changeName = (input) => {
         setData({ ...data, name: input })
@@ -93,7 +118,11 @@ export default function TransactionModal(props) {
         }
     }
 
-    console.log(data)
+    
+
+
+
+
 
     return (
         <View>
@@ -112,18 +141,11 @@ export default function TransactionModal(props) {
                         <TouchableOpacity style={styles.modalButton} onPress={props.toggleModal}>
                             <Text style={{ color: props.colors.white }}>Discard</Text>
                         </TouchableOpacity>
-                        {data.amount !== 0 && (
-                            <TouchableOpacity onPress={props.saveTransaction.bind(this, data)} style={styles.modalButton}>
-                                <Text style={{ color: props.colors.white }}>Save</Text>
-                            </TouchableOpacity>
-                        )
 
-                            || data.amount === 0 && (
-                                <TouchableOpacity activeOpacity={1} style={styles.modalButtonDisabled}>
-                                    <Text style={{ color: props.colors.white }}>Save</Text>
-                                </TouchableOpacity>
-                            )
-                        }
+                        <TouchableOpacity onPress={context.addTransaction.bind(this, data)}
+                            style={data.amount !== 0 ? styles.modalButton : styles.modalButtonDisabled}>
+                            <Text style={{ color: props.colors.white }}>Save</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>
